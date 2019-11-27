@@ -96,11 +96,11 @@ function getticketconvo(){
         })
 }
 
-function getsummary(){
-    str = `<p> Get to know the summary of this ticket conversation </p>
-          <button onclick="openModal();" class="summary_button"> Summary </button>`
-    document.getElementById('onboard').innerHTML = str;
-}
+// function getsummary(){
+//     str = `<p> Get to know the summary of this ticket conversation </p>
+//           <button onclick="openModal();" class="summary_button"> Summary </button>`
+//     document.getElementById('onboard').innerHTML = str;
+// }
 
 function openModal() {
   console.log("Im here")
