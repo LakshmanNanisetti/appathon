@@ -90,6 +90,7 @@ function getticketconvo(){
               convo_created : convo_created
             }
           window.storageData.conversation = conversation_data
+          loader()
           console.log("Going through the ticket conversations .... ")
           console.log()
           // getsummary()
@@ -121,7 +122,10 @@ function openModal() {
 
 // $('#apptext').text("Ticket created by " + data.contact.name);
 
-
+function loader(){
+  document.getElementById('onboard').style.display = "block"
+  document.getElementById('loader').style.display = "none"
+}
 
 // 
 
