@@ -225,7 +225,50 @@
 180
 181
 182
-183</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -269,6 +312,49 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -507,17 +593,41 @@ function constructtimeline(){
     // ${window.storageData.summary[i]}&lt;/div&gt;
     // `
   }
-  str2 = ''
+  
+  
+  window.client.db.get(`ticket-${ticket_id}-overall-summary`).then(
+    function(data) {
+       let overallSummary = data['message']
+      if(!overallSummary) {
+        overallSummary = getOverallSummaryModelData();
+      }
+      document.getElementById('overall-summary').innerHTML = overallSummary
+    },
+    function(error) {
+      document.getElementById('overall-summary').innerHTML = getOverallSummaryModelData();
+    }
+  )
+  // for (let j = 0; j &lt; window.storageData.summary.length; j++)  {
+  //   // console.log("!!!!!!!!!!!!!!", window.storageData.summary[j])
+  //   str2 += changeCaseFirstLetter(window.storageData.summary[j])
+&nbsp;
+  // }
+  // console.log("The string ", str2)
+&nbsp;
+  // document.getElementById('overall-summary').innerHTML = str2
+  // document.getElementById('summary').innerHTML = str
+}
+&nbsp;
+function getOverallSummaryModelData() {
+  let str2 = ''
   for (let j = 0; j &lt; window.storageData.summary.length; j++)  {
-    console.log("!!!!!!!!!!!!!!", window.storageData.summary[j])
+    // console.log("!!!!!!!!!!!!!!", window.storageData.summary[j])
     str2 += changeCaseFirstLetter(window.storageData.summary[j])
 &nbsp;
   }
-  console.log("The string ", str2)
-&nbsp;
-  document.getElementById('overall-summary').innerHTML = str2
-  // document.getElementById('summary').innerHTML = str
+  return str2;
 }
+&nbsp;
 function getDataForMsg(msg_content, i, ticket_id, isEdited) {
   let colorStatus = {
     1 : ['ticket-details__requestor'],
@@ -527,7 +637,7 @@ function getDataForMsg(msg_content, i, ticket_id, isEdited) {
   console.log(`status: ${window.storageData.status[i]}`)
   return `
   &lt;li class=${colorStatus[window.storageData.status[i]]} data-edited="${isEdited}"&gt;
-    &lt;span class="data-edit-icon"&gt;
+    &lt;span class="data-edit-icon" onclick='changeContentEdit(${i})'&gt;
       &lt;p&gt;
         ${getRelativeTime(new Date(window.storageData.created[i]).getTime())}
       &lt;/p&gt;
@@ -577,12 +687,31 @@ function loader_model(){
 &nbsp;
 function changeContentEdit(i) {
   document.getElementById(`info-msg-${i}`).contentEditable = true
+  document.getElementById(`info-msg-${i}`).focus()
 }
 &nbsp;
 function saveData(i, ticket_id) {
   let msg = document.getElementById(`info-msg-${i}`).innerHTML
   window.client.db.set(`ticket-${ticket_id}-${i}`, {message: msg}).then(
     function(data){
+&nbsp;
+    },
+    function(error) {
+      alert(error)
+    }
+  )
+}
+&nbsp;
+function makeOverallSummaryEditable() {
+  document.getElementById('overall-summary').contentEditable = true;
+  document.getElementById("overall-summary").focus();
+}
+&nbsp;
+function saveOverallSummary() {
+  let ticket_id = window.storageData.ticket_id
+  let msg = document.getElementById('overall-summary').innerHTML
+  window.client.db.set(`ticket-${ticket_id}-overall-summary`, {message: msg}).then(
+    function(data) {
 &nbsp;
     },
     function(error) {

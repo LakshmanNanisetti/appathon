@@ -142,7 +142,7 @@ function getDataForMsg(msg_content, i, ticket_id, isEdited) {
   console.log(`status: ${window.storageData.status[i]}`)
   return `
   <li class=${colorStatus[window.storageData.status[i]]} data-edited="${isEdited}">
-    <span class="data-edit-icon">
+    <span class="data-edit-icon" onclick='changeContentEdit(${i})'>
       <p>
         ${getRelativeTime(new Date(window.storageData.created[i]).getTime())}
       </p>
@@ -192,6 +192,7 @@ function loader_model(){
 
 function changeContentEdit(i) {
   document.getElementById(`info-msg-${i}`).contentEditable = true
+  document.getElementById(`info-msg-${i}`).focus()
 }
 
 function saveData(i, ticket_id) {

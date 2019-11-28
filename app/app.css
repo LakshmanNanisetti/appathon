@@ -72,6 +72,7 @@ body {
   color: #022942;
   font-size: 14px;
   line-height: 20px;
+  outline:none;
 }
 
 .container ul {
@@ -138,6 +139,9 @@ body {
 }
 .container #summary .info {
   font-weight: 300;
+}
+.info {
+  outline:none;
 }
 .container #summary > div {
   margin-top: 5px;
