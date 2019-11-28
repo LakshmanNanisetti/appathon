@@ -161,8 +161,7 @@
 116
 117
 118
-119
-120</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+119</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -206,7 +205,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -350,12 +348,11 @@ function constructtimeline(){
   };
     str = ''
     for(i = window.storageData.tickets.length - 1; i &gt;= 0 ; i--){
-    str += `&lt;li class=${colorStatus[window.storageData.status[i]]}&gt;
-              &lt;div id=summary` + i + `&gt;
-                &lt;div class="info"&gt;${window.storageData.summary[i]}&lt;/div&gt; 
-                &lt;div class="title"&gt;NAME&lt;/div&gt;
-              &lt;/div&gt; &lt;span class="number top"&gt;&lt;span&gt;` + getRelativeTime(new Date(window.storageData.created[i]).getTime()) + `&lt;/span&gt;&lt;/span&gt;
-            &lt;/li&gt;`
+    str += `&lt;li class=${colorStatus[window.storageData.status[i]]} data-edited=""&gt;
+    &lt;span class="data-edit-icon"&gt;&lt;p&gt;${getRelativeTime(window.storageData.created[i])}&lt;/p&gt; &lt;a href="#" class="btn--default edit--icon"&gt;&lt;img src="edit.svg" width="12" height="12" class="__icon"/&gt; Edit&lt;/a&gt;&lt;/div&gt;&lt;/span&gt;
+    &lt;div class="info"&gt;
+    ${window.storageData.summary[i]}&lt;/div&gt;
+    `
   }
   str2 = ''
   for (i = 0; i &lt; window.storageData.summary.length; i++)  {

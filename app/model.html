@@ -38,16 +38,25 @@
   <body>
     <div id="loader_model" class="loader"></div>
     <div id = "onboard" style="display:none">
-      <div class='container' style="display:flex; justify-content: space-between;"> 
-        <p class="label">OVERALL SUMMARY</p>
-        <div class=rectangle button-edit><span class="icon-edit"></span><a href="#">Edit</a></div>  
+      <div class='row'> 
+        <div class="col-6"><h4 class="heading-h4 valign">OVERALL SUMMARY</h4></div>
+        <div class="col-6 text-right" button-edit><a href="#" class="btn--default"><img src="edit.svg" width="12" height="12" class="__icon"/> Edit</a></div>  
       </div>
       <p id="overall-summary"></p>
       <hr>
       <!-- </div>  -->
-      <div class="container">
-        <div id='total-summary'><h1>Total</h1></div>
-        <ul id="summary" style='color:black'>
+      <div class="row mt-5 mb-4">
+          <div class="col">
+            <h4 class="heading-h4">Ticket Summary</h4>
+          </div>
+          <div class="col text-right">
+            <span class="heading-h6">Sort By: Last Updated</span>
+          </div>
+      </div>
+      
+      <div>
+        <ul id="summary" class="summary-details">
+
         </ul>
       </div>
     </div>

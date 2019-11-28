@@ -67,12 +67,11 @@ function constructtimeline(){
   };
     str = ''
     for(i = window.storageData.tickets.length - 1; i >= 0 ; i--){
-    str += `<li class=${colorStatus[window.storageData.status[i]]}>
-              <div id=summary` + i + `>
-                <div class="info">${window.storageData.summary[i]}</div> 
-                <div class="title">NAME</div>
-              </div> <span class="number top"><span>` + getRelativeTime(new Date(window.storageData.created[i]).getTime()) + `</span></span>
-            </li>`
+    str += `<li class=${colorStatus[window.storageData.status[i]]} data-edited="">
+    <span class="data-edit-icon"><p>${getRelativeTime(window.storageData.created[i])}</p> <a href="#" class="btn--default edit--icon"><img src="edit.svg" width="12" height="12" class="__icon"/> Edit</a></div></span>
+    <div class="info">
+    ${window.storageData.summary[i]}</div>
+    `
   }
   str2 = ''
   for (i = 0; i < window.storageData.summary.length; i++)  {
