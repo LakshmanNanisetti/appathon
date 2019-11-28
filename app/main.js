@@ -1,4 +1,5 @@
 var client;
+var showTotalSummary = false;
 window.storageData = {
   tickets : null,
   created : null
@@ -30,14 +31,39 @@ function constructtimeline(){
     for(i = 0; i < window.storageData.tickets.length; i++){
     str += `<li>
               <div>
-                <div class="info">safdsgdhjyuk</div> 
-                <div class="type">${window.storageData.created[i]}</div>
+                <div class="info">safdsgdhjyuk<p>Rows are wrappers for columns. Each column has horizontal padding (called a gutter) for controlling the space between them. This padding is then counteracted on the rows with negative margins. This way, all the content in your columns is visually aligned down the left side.
+</div> 
+                <div class="type">` + getRelativeTime(new Date(window.storageData.created[0]).getTime()) + `</div>
                 <div class="title">NAME</div>
-              </div> <span class="number"><span>10:00</span> <span>12:00</span></span>
+              </div> <span class="number top">` + getRelativeTime(new Date(window.storageData.created[0]).getTime()) + `</span>
             </li>`
   }
   document.getElementById('summary').innerHTML = str
 }
 
-// ${window.storageData.tickets[i]}
-// 
+function getRelativeTime(time) {
+  let min = 60;
+  let hour = 3600;
+  let day = 86400;
+  let month = 2592000;  
+  let year = 31536000;
+  let diff = new Date().getTime() - time;
+  if(diff < min) {
+    return `${diff} seconds ago.`;
+  } else if (diff < hour) {
+    return `${Math.ceil(diff / min)} minutes ago.`;
+  } else if (diff < day) {
+    return `${Math.ceil(diff / hour)} hours ago.`;
+  } else if (diff < month){
+    return `${Math.ceil(diff/day)} days ago`;
+  } else if (diff < year){
+    return `${Math.ceil(diff/month)} months ago`;
+  } else {
+    return `${Math.ceil(diff/year)} years ago`;
+  }
+}
+
+function showTotalSummary() {
+  document.getElementById('total-summary').style.display = 'block';
+  document.getElementById('summary').style.display = 'none';
+}
