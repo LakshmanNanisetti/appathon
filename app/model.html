@@ -40,9 +40,9 @@
     <div id = "onboard" style="display:none">
       <div class='row'> 
         <div class="col-6"><h4 class="heading-h4 valign">OVERALL SUMMARY</h4></div>
-        <div class="col-6 text-right" button-edit><a href="#" class="btn--default"><img src="edit.svg" width="12" height="12" class="__icon"/> Edit</a></div>  
+        <div class="col-6 text-right" button-edit><a href="#" class="btn--default" onclick ='makeOverallSummaryEditable()'><img src="edit.svg" width="12" height="12" class="__icon"/> Edit</a></div>  
       </div>
-      <p id="overall-summary"></p>
+      <p id="overall-summary" onkeyup='saveOverallSummary()'></p>
       <hr>
       <!-- </div>  -->
       <div class="row mt-5 mb-4">

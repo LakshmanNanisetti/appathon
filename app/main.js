@@ -98,17 +98,41 @@ function constructtimeline(){
     // ${window.storageData.summary[i]}</div>
     // `
   }
-  str2 = ''
+  
+  
+  window.client.db.get(`ticket-${ticket_id}-overall-summary`).then(
+    function(data) {
+       let overallSummary = data['message']
+      if(!overallSummary) {
+        overallSummary = getOverallSummaryModelData();
+      }
+      document.getElementById('overall-summary').innerHTML = overallSummary
+    },
+    function(error) {
+      document.getElementById('overall-summary').innerHTML = getOverallSummaryModelData();
+    }
+  )
+  // for (let j = 0; j < window.storageData.summary.length; j++)  {
+  //   // console.log("!!!!!!!!!!!!!!", window.storageData.summary[j])
+  //   str2 += changeCaseFirstLetter(window.storageData.summary[j])
+
+  // }
+  // console.log("The string ", str2)
+
+  // document.getElementById('overall-summary').innerHTML = str2
+  // document.getElementById('summary').innerHTML = str
+}
+
+function getOverallSummaryModelData() {
+  let str2 = ''
   for (let j = 0; j < window.storageData.summary.length; j++)  {
-    console.log("!!!!!!!!!!!!!!", window.storageData.summary[j])
+    // console.log("!!!!!!!!!!!!!!", window.storageData.summary[j])
     str2 += changeCaseFirstLetter(window.storageData.summary[j])
 
   }
-  console.log("The string ", str2)
-
-  document.getElementById('overall-summary').innerHTML = str2
-  // document.getElementById('summary').innerHTML = str
+  return str2;
 }
+
 function getDataForMsg(msg_content, i, ticket_id, isEdited) {
   let colorStatus = {
     1 : ['ticket-details__requestor'],
@@ -174,6 +198,24 @@ function saveData(i, ticket_id) {
   let msg = document.getElementById(`info-msg-${i}`).innerHTML
   window.client.db.set(`ticket-${ticket_id}-${i}`, {message: msg}).then(
     function(data){
+
+    },
+    function(error) {
+      alert(error)
+    }
+  )
+}
+
+function makeOverallSummaryEditable() {
+  document.getElementById('overall-summary').contentEditable = true;
+  document.getElementById("overall-summary").focus();
+}
+
+function saveOverallSummary() {
+  let ticket_id = window.storageData.ticket_id
+  let msg = document.getElementById('overall-summary').innerHTML
+  window.client.db.set(`ticket-${ticket_id}-overall-summary`, {message: msg}).then(
+    function(data) {
 
     },
     function(error) {
