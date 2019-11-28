@@ -28,14 +28,12 @@ $(document).ready( function() {
 
 function constructtimeline(){
     str = ''
-    for(i = 0; i < window.storageData.tickets.length; i++){
+    for(i = window.storageData.tickets.length - 1; i >= 0 ; i--){
     str += `<li>
-              <div>
-                <div class="info">safdsgdhjyuk<p>Rows are wrappers for columns. Each column has horizontal padding (called a gutter) for controlling the space between them. This padding is then counteracted on the rows with negative margins. This way, all the content in your columns is visually aligned down the left side.
-</div> 
-                <div class="type">` + getRelativeTime(new Date(window.storageData.created[0]).getTime()) + `</div>
+              <div id=summary` + i + `>
+                <div class="info">safdsgdhjyuk</div> 
                 <div class="title">NAME</div>
-              </div> <span class="number top">` + getRelativeTime(new Date(window.storageData.created[0]).getTime()) + `</span>
+              </div> <span class="number top"><span>` + getRelativeTime(new Date(window.storageData.created[i]).getTime()) + `</span></span>
             </li>`
   }
   document.getElementById('summary').innerHTML = str
@@ -48,6 +46,7 @@ function getRelativeTime(time) {
   let month = 2592000;  
   let year = 31536000;
   let diff = new Date().getTime() - time;
+  diff = Math.round(diff/1000)
   if(diff < min) {
     return `${diff} seconds ago.`;
   } else if (diff < hour) {

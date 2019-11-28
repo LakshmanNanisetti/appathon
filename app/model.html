@@ -16,17 +16,16 @@
         .trigger {
           width:70px;
           padding:3px;
-          border-color: #02B875;
+          border-color: #E5F2FD;
+          text-align: center;
         }
         .trigger:hover {
-          background-color: #02B875;
-          color: white;
-          /*border-color: #274255;*/
+          background-color:  rgba(18, 128, 109, 0.15);
         }
-        .normal-trigger {
-          border:1px solid;
+        .list-trigger {
+          border-width:1px;
           border-radius:2px 0px 0px 2px;
-          text-align: center;
+          border-style: solid;
         }
         .total-summary-trigger {
           border-width:1px 1px 1px 0px;
@@ -39,8 +38,8 @@
   <body>
     <div class='container'>
       <div class='row' style='float:right; padding-bottom:20px; font-size:14px'>
-        <a><div class='trigger normal-trigger'>List </div></a>
-        <a><div class='trigger total-summary-trigger'>Summary</div></a>
+        <a onclick='showListSummary()'><div class='trigger list-trigger'>List </div></a>
+        <a onclick="showTotalSummary()"><div class='trigger total-summary-trigger'>Summary</div></a>
       </div>
     </div>
     <div class="container">
@@ -54,8 +53,9 @@
   document.getElementById('total-summary').style.display = 'block';
   document.getElementById('summary').style.display = 'none';
 }
-function showSummary(){
-
-  </script>
+function showListSummary() {
+  document.getElementById('total-summary').style.display = 'none';
+  document.getElementById('summary').style.display = 'block';
 }
+  </script>
 </html>
