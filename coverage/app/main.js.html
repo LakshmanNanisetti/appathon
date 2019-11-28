@@ -161,7 +161,71 @@
 116
 117
 118
-119</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -205,6 +269,70 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -305,24 +433,25 @@ $(document).ready( function() {
 <span class="cstat-no" title="statement not covered" >        window.storageData.t</span>ickets = tickets
         window.storageData.created = created_dates
         window.storageData.status = context.data.status
+        window.storageData.ticket_id = context.data.ticket.ticket_data_id
         console.log(window.storageData)
-        getmodeldata()
-      });<span class="fstat-no" title="function not covered" ></span>
+        getmodeldata()<span class="fstat-no" title="function not covered" ></span>
+<span class="cstat-no" title="statement not covered" >      });</span>
 <span class="cstat-no" title="statement not covered" >    });</span>
 });<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" ></span>
+&nbsp;
 function getmodeldata(){
     var headers = {'Content-Type': 'application/json'};
     
     var url = `https://b2fcb035.ngrok.io/summary`;
     var body = JSON.stringify({data: window.storageData.tickets  });
 &nbsp;
-    var options = { headers: headers, body: body };
-  <span class="cstat-no" title="statement not covered" > </span>
+<span class="cstat-no" title="statement not covered" >    var options = { headers: headers, body: body };</span>
+   
     console.log("~~~~~~~~~ ", body)
-    client.request.post(url, options)
-        .then (<span class="fstat-no" title="function not covered" ></span>
-<span class="cstat-no" title="statement not covered" >        fun</span>ction(data) {
+    client.request.post(url, op<span class="fstat-no" title="function not covered" >tions)</span>
+<span class="cstat-no" title="statement not covered" >        .th</span>en (
+        function(data) {
           console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ",data)
           data_ = JSON.parse(data.response)
           window.storageData.summary = data_.summary
@@ -346,26 +475,73 @@ function constructtimeline(){
     2 : ['ticket-details__privatenote'],
     3 : ['ticket-details__item']
   };
-    str = ''
-    for(i = window.storageData.tickets.length - 1; i &gt;= 0 ; i--){
-    str += `&lt;li class=${colorStatus[window.storageData.status[i]]} data-edited=""&gt;
-    &lt;span class="data-edit-icon"&gt;&lt;p&gt;${getRelativeTime(window.storageData.created[i])}&lt;/p&gt; &lt;a href="#" class="btn--default edit--icon"&gt;&lt;img src="edit.svg" width="12" height="12" class="__icon"/&gt; Edit&lt;/a&gt;&lt;/div&gt;&lt;/span&gt;
-    &lt;div class="info"&gt;
-    ${window.storageData.summary[i]}&lt;/div&gt;
-    `
+  let ticket_id = window.storageData.ticket_id
+  document.getElementById('summary').innerHTML = ''
+    for(let i = window.storageData.tickets.length - 1; i &gt;= 0 ; i--){
+      let msg_content;
+      console.log(`key: ticket-${ticket_id}-${i}`)
+      window.client.db.get(`ticket-${ticket_id}-${i}`).then(
+        
+        function(data){
+          let isEdited;
+          msg_content = data['message'];
+          if(msg_content){
+            isEdited = true;
+          }
+          else {
+            msg_content = window.storageData.summary[i]
+            isEdited = false;
+          }
+          document.getElementById('summary').innerHTML += getDataForMsg(msg_content, i, ticket_id, isEdited);
+        },
+        function(error) {
+          console.log('error - branch')
+          msg_content = window.storageData.summary[i]
+          document.getElementById('summary').innerHTML += getDataForMsg(msg_content, i, ticket_id, false)
+          console.log(`li data ${getDataForMsg(msg_content, i, ticket_id)}`)
+        }
+      )
+    // str += `&lt;li class=${colorStatus[window.storageData.status[i]]} data-edited=""&gt;
+    // &lt;span class="data-edit-icon"&gt;&lt;p&gt;${getRelativeTime(new Date(window.storageData.created[i]).getTime())}&lt;/p&gt; &lt;a href="#" class="btn--default edit--icon"&gt;&lt;img src="edit.svg" width="12" height="12" class="__icon"/&gt; Edit&lt;/a&gt;&lt;/div&gt;&lt;/span&gt;
+    // &lt;div class="info" id = 'info-msg-${i}' onclick='changeContentEdit(${i})' onkeyup='saveData(${i},${ticket_id})'&gt;
+    // ${window.storageData.summary[i]}&lt;/div&gt;
+    // `
   }
   str2 = ''
-  for (i = 0; i &lt; window.storageData.summary.length; i++)  {
-    console.log("!!!!!!!!!!!!!!", window.storageData.summary[i])
-    str2 += changeCaseFirstLetter(window.storageData.summary[i])
+  for (let j = 0; j &lt; window.storageData.summary.length; j++)  {
+    console.log("!!!!!!!!!!!!!!", window.storageData.summary[j])
+    str2 += changeCaseFirstLetter(window.storageData.summary[j])
 &nbsp;
   }
   console.log("The string ", str2)
 &nbsp;
   document.getElementById('overall-summary').innerHTML = str2
-  document.getElementById('summary').innerHTML = str
+  // document.getElementById('summary').innerHTML = str
 }
-&nbsp;
+function getDataForMsg(msg_content, i, ticket_id, isEdited) {
+  let colorStatus = {
+    1 : ['ticket-details__requestor'],
+    2 : ['ticket-details__privatenote'],
+    3 : ['ticket-details__item']
+  };
+  console.log(`status: ${window.storageData.status[i]}`)
+  return `
+  &lt;li class=${colorStatus[window.storageData.status[i]]} data-edited="${isEdited}"&gt;
+    &lt;span class="data-edit-icon"&gt;
+      &lt;p&gt;
+        ${getRelativeTime(new Date(window.storageData.created[i]).getTime())}
+      &lt;/p&gt;
+      &lt;a href="#" class="btn--default edit--icon"&gt;
+        &lt;img src="edit.svg" width="12" height="12" class="__icon"/&gt;
+        Edit
+      &lt;/a&gt;
+    &lt;/span&gt;
+    &lt;div class="info" id = 'info-msg-${i}' onclick='changeContentEdit(${i})' onkeyup='saveData(${i},${ticket_id})'&gt;
+      ${msg_content}
+    &lt;/div&gt;
+  &lt;/li&gt;
+    `
+}
 function getRelativeTime(time) {
   let min = 60;
   let hour = 3600;
@@ -397,6 +573,22 @@ function showTotalSummary() {
 function loader_model(){
   document.getElementById('onboard').style.display = "block"
   document.getElementById('loader_model').style.display = "none"
+}
+&nbsp;
+function changeContentEdit(i) {
+  document.getElementById(`info-msg-${i}`).contentEditable = true
+}
+&nbsp;
+function saveData(i, ticket_id) {
+  let msg = document.getElementById(`info-msg-${i}`).innerHTML
+  window.client.db.set(`ticket-${ticket_id}-${i}`, {message: msg}).then(
+    function(data){
+&nbsp;
+    },
+    function(error) {
+      alert(error)
+    }
+  )
 }</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->

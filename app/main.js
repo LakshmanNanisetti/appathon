@@ -24,6 +24,7 @@ $(document).ready( function() {
         window.storageData.tickets = tickets
         window.storageData.created = created_dates
         window.storageData.status = context.data.status
+        window.storageData.ticket_id = context.data.ticket.ticket_data_id
         console.log(window.storageData)
         getmodeldata()
       });
@@ -65,26 +66,73 @@ function constructtimeline(){
     2 : ['ticket-details__privatenote'],
     3 : ['ticket-details__item']
   };
-    str = ''
-    for(i = window.storageData.tickets.length - 1; i >= 0 ; i--){
-    str += `<li class=${colorStatus[window.storageData.status[i]]} data-edited="">
-    <span class="data-edit-icon"><p>${getRelativeTime(window.storageData.created[i])}</p> <a href="#" class="btn--default edit--icon"><img src="edit.svg" width="12" height="12" class="__icon"/> Edit</a></div></span>
-    <div class="info">
-    ${window.storageData.summary[i]}</div>
-    `
+  let ticket_id = window.storageData.ticket_id
+  document.getElementById('summary').innerHTML = ''
+    for(let i = window.storageData.tickets.length - 1; i >= 0 ; i--){
+      let msg_content;
+      console.log(`key: ticket-${ticket_id}-${i}`)
+      window.client.db.get(`ticket-${ticket_id}-${i}`).then(
+        
+        function(data){
+          let isEdited;
+          msg_content = data['message'];
+          if(msg_content){
+            isEdited = true;
+          }
+          else {
+            msg_content = window.storageData.summary[i]
+            isEdited = false;
+          }
+          document.getElementById('summary').innerHTML += getDataForMsg(msg_content, i, ticket_id, isEdited);
+        },
+        function(error) {
+          console.log('error - branch')
+          msg_content = window.storageData.summary[i]
+          document.getElementById('summary').innerHTML += getDataForMsg(msg_content, i, ticket_id, false)
+          console.log(`li data ${getDataForMsg(msg_content, i, ticket_id)}`)
+        }
+      )
+    // str += `<li class=${colorStatus[window.storageData.status[i]]} data-edited="">
+    // <span class="data-edit-icon"><p>${getRelativeTime(new Date(window.storageData.created[i]).getTime())}</p> <a href="#" class="btn--default edit--icon"><img src="edit.svg" width="12" height="12" class="__icon"/> Edit</a></div></span>
+    // <div class="info" id = 'info-msg-${i}' onclick='changeContentEdit(${i})' onkeyup='saveData(${i},${ticket_id})'>
+    // ${window.storageData.summary[i]}</div>
+    // `
   }
   str2 = ''
-  for (i = 0; i < window.storageData.summary.length; i++)  {
-    console.log("!!!!!!!!!!!!!!", window.storageData.summary[i])
-    str2 += changeCaseFirstLetter(window.storageData.summary[i])
+  for (let j = 0; j < window.storageData.summary.length; j++)  {
+    console.log("!!!!!!!!!!!!!!", window.storageData.summary[j])
+    str2 += changeCaseFirstLetter(window.storageData.summary[j])
 
   }
   console.log("The string ", str2)
 
   document.getElementById('overall-summary').innerHTML = str2
-  document.getElementById('summary').innerHTML = str
+  // document.getElementById('summary').innerHTML = str
 }
-
+function getDataForMsg(msg_content, i, ticket_id, isEdited) {
+  let colorStatus = {
+    1 : ['ticket-details__requestor'],
+    2 : ['ticket-details__privatenote'],
+    3 : ['ticket-details__item']
+  };
+  console.log(`status: ${window.storageData.status[i]}`)
+  return `
+  <li class=${colorStatus[window.storageData.status[i]]} data-edited="${isEdited}">
+    <span class="data-edit-icon">
+      <p>
+        ${getRelativeTime(new Date(window.storageData.created[i]).getTime())}
+      </p>
+      <a href="#" class="btn--default edit--icon">
+        <img src="edit.svg" width="12" height="12" class="__icon"/>
+        Edit
+      </a>
+    </span>
+    <div class="info" id = 'info-msg-${i}' onclick='changeContentEdit(${i})' onkeyup='saveData(${i},${ticket_id})'>
+      ${msg_content}
+    </div>
+  </li>
+    `
+}
 function getRelativeTime(time) {
   let min = 60;
   let hour = 3600;
@@ -116,4 +164,20 @@ function showTotalSummary() {
 function loader_model(){
   document.getElementById('onboard').style.display = "block"
   document.getElementById('loader_model').style.display = "none"
+}
+
+function changeContentEdit(i) {
+  document.getElementById(`info-msg-${i}`).contentEditable = true
+}
+
+function saveData(i, ticket_id) {
+  let msg = document.getElementById(`info-msg-${i}`).innerHTML
+  window.client.db.set(`ticket-${ticket_id}-${i}`, {message: msg}).then(
+    function(data){
+
+    },
+    function(error) {
+      alert(error)
+    }
+  )
 }
