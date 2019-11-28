@@ -2,50 +2,37 @@ var client;
 window.storageData = {
   'ticket' : null,
   'conversation' : null,
+  'status' : [],
+  'names' : [],
+  'responder' : null,
+  'agent_name' : null
 }
 
 $(document).ready( function() {
     app.initialized()
         .then(function(_client) {
           window.client = _client;
-          // getticketdetails()
           client.events.on('app.activated',
           function() {
-              getticketdetails();
-              // getcontactdeatils()
+              getcontactdeatils()
         });
     });
 });
 
+// reply_cc_emails: []
+// requester_id: 47014379647
+// responder_id: 47014379641
 function getcontactdeatils(){
   client.data.get('contact')
         .then(function(data) { 
-          console.log("contact : ", data)
-          
+          console.log("contact : ", data)    
+          window.storageData.names.push(data.contact.name)     
         })
         .catch(function(e) {
           console.log('Exception - ', e);
         });
-        getconvodetails()
+        getticketdetails()
 }
-
-// reply_cc_emails: []
-// requester_id: 47014379647
-// responder_id: 47014379641
-
-function getconvodetails(){
-  // /api/v2/contacts/[id]
-    var headers = {"Authorization": "QmZIYWRuQjZRU01oeHVVNmVwVQ==", 'Content-Type': 'application/json'};
-    var options = { headers: headers };
-    var url = `https://sahithi37.freshdesk.com//api/v2/contacts/${47014379641}`;
-    client.request.get(url, options)
-        .then (
-        function(data) {
-          console.log("req ",JSON.parse(data.response))
-          // getsummary()
-        })
-}
-
 
 function getticketdetails(){
   console.log("Im here")
@@ -55,18 +42,39 @@ function getticketdetails(){
           ticket_data = {
             ticket_data_id : data.ticket.id,
             subject : data.ticket.subject,
-            ticket : data.ticket.description,
+            ticket : data.ticket.description_text,
             created_at : data.ticket.created_at
           }
-            // console.log("subject :", subject,'\n', "ticket :", ticket,'\n', "created_at :", created_at)  
+            window.storageData.status.push(1)
+            window.storageData.responder = data.ticket.responder_id
             console.log("Ticket data...")
             console.log(ticket_data)
             window.storageData.ticket = ticket_data
-            getticketconvo()
+            
+            getconvodetails()
         })
   .catch(function(e) {
     console.log('Exception - ', e);
   });
+}
+
+function getconvodetails(){
+  // /api/v2/contacts/[id]
+    console.log("++++++++++ ", window.storageData.responder)
+    var headers = {"Authorization": "QmZIYWRuQjZRU01oeHVVNmVwVQ==", 'Content-Type': 'application/json'};
+    var body = JSON.stringify({view_all_tickets: null  });
+    var options = { headers: headers  };
+    // var url = `https://sahithi37.freshdesk.com/api/v2/contacts/`;
+    var url = `https://sahithi37.freshdesk.com/api/v2/agents/${window.storageData.responder}`
+    client.request.get(url, options)
+        .then (
+        function(data) {
+          var res=JSON.parse(data.response);
+          console.log("req ",res)
+          window.storageData.agent_name = res.contact.name
+          getticketconvo();
+          // getsummary()
+        })
 }
 
 function getticketconvo(){
@@ -82,8 +90,17 @@ function getticketconvo(){
           convo_body = []
           convo_created = []
           for(i = 0; i < data_.length; i++) {
-              convo_body.push(data_[i].body)
+              convo_body.push(data_[i].body_text)
               convo_created.push(data_[i].created_at)
+              if(data_[i].private == true) {
+                window.storageData.status.push(2)
+              }
+              else if(data_[i].private == false) {
+                window.storageData.status.push(3)
+              }
+              if(data_[i].user_id == window.storageData.responder) {
+                window.storageData.names.push(window.storageData.agent_name)
+              }
             }
           conversation_data = {
               convo_body : convo_body,
@@ -91,41 +108,24 @@ function getticketconvo(){
             }
           window.storageData.conversation = conversation_data
           loader()
-          console.log("Going through the ticket conversations .... ")
-          console.log()
-          // getsummary()
         })
 }
-
-// function getsummary(){
-//     str = `<p> Get to know the summary of this ticket conversation </p>
-//           <button onclick="openModal();" class="summary_button"> Summary </button>`
-//     document.getElementById('onboard').innerHTML = str;
-// }
 
 function openModal() {
   console.log("Im here")
    client.interface.trigger("showModal", {
-      title: "Sample Modal",
+      title: window.storageData.ticket.subject,
       template: "model.html",
-      data: {ticket: window.storageData.ticket, conversation: window.storageData.conversation}
+      data: window.storageData
 
     }).then(function() {
-      // client.instance.send({
-      //   message: {ticket: window.storageData.ticket, conversation: window.storageData.conversation}
-      // });
-    // data - success message
     }).catch(function(error) {
-    // error - error object
-    });
+  });
 }
-
-// $('#apptext').text("Ticket created by " + data.contact.name);
 
 function loader(){
   document.getElementById('onboard').style.display = "block"
   document.getElementById('loader').style.display = "none"
 }
 
-// 
 

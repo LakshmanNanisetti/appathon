@@ -11,6 +11,8 @@
     }
   },
 "whitelisted-domains": [
-  "https://*.freshdesk.com"
+  "https://*.freshdesk.com",
+  "https://b2fcb035.ngrok.io",
+  "https://enamjr81gvk5s.x.pipedream.net"
 ]
 }

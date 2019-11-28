@@ -2,7 +2,9 @@ var client;
 var showTotalSummary = false;
 window.storageData = {
   tickets : null,
-  created : null
+  created : null,
+  summary : null,
+  status : []
 };
 
 $(document).ready( function() {
@@ -10,6 +12,7 @@ $(document).ready( function() {
     .then(function(_client) {
       window.client = _client;
       client.instance.context().then(function(context){
+        console.log("+++++++++++ ", context)
         tickets = []
         created_dates = []
         tickets.push(context.data.ticket.ticket)
@@ -20,22 +23,66 @@ $(document).ready( function() {
         }
         window.storageData.tickets = tickets
         window.storageData.created = created_dates
+        window.storageData.status = context.data.status
         console.log(window.storageData)
-        constructtimeline()
+        getmodeldata()
       });
     });
 });
 
-function constructtimeline(){
+function getmodeldata(){
+    var headers = {'Content-Type': 'application/json'};
+    
+    var url = `https://b2fcb035.ngrok.io/summary`;
+    var body = JSON.stringify({data: window.storageData.tickets  });
+
+    var options = { headers: headers, body: body };
+   
+    console.log("~~~~~~~~~ ", body)
+    client.request.post(url, options)
+        .then (
+        function(data) {
+          console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ",data)
+          data_ = JSON.parse(data.response)
+          window.storageData.summary = data_.summary
+          console.log("The Summary ",data_.summary)
+          constructtimeline()
+          loader_model()
+        });       
+}
+
+function changeCaseFirstLetter(params) {
+  if(typeof params === 'string') {
+          return params.charAt(0).toUpperCase() + params.slice(1);
+  }
+  return null;
+}
+
+function constructtimeline(){   
+  // loader_model()
+  let colorStatus = {
+    1 : ['ticket-details__requestor'],
+    2 : ['ticket-details__privatenote'],
+    3 : ['ticket-details__item']
+  };
     str = ''
     for(i = window.storageData.tickets.length - 1; i >= 0 ; i--){
-    str += `<li>
+    str += `<li class=${colorStatus[window.storageData.status[i]]}>
               <div id=summary` + i + `>
-                <div class="info">safdsgdhjyuk</div> 
+                <div class="info">${window.storageData.summary[i]}</div> 
                 <div class="title">NAME</div>
               </div> <span class="number top"><span>` + getRelativeTime(new Date(window.storageData.created[i]).getTime()) + `</span></span>
             </li>`
   }
+  str2 = ''
+  for (i = 0; i < window.storageData.summary.length; i++)  {
+    console.log("!!!!!!!!!!!!!!", window.storageData.summary[i])
+    str2 += changeCaseFirstLetter(window.storageData.summary[i])
+
+  }
+  console.log("The string ", str2)
+
+  document.getElementById('overall-summary').innerHTML = str2
   document.getElementById('summary').innerHTML = str
 }
 
@@ -65,4 +112,9 @@ function getRelativeTime(time) {
 function showTotalSummary() {
   document.getElementById('total-summary').style.display = 'block';
   document.getElementById('summary').style.display = 'none';
+}
+
+function loader_model(){
+  document.getElementById('onboard').style.display = "block"
+  document.getElementById('loader_model').style.display = "none"
 }
