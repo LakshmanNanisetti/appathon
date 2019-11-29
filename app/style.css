@@ -152,3 +152,10 @@ body {
 	box-shadow: 5px 10px 5px 10px #aaaaaa;
 }
 /*copied css*/
+
+.summary-trigger {
+  color:white !important;
+    border: 1px solid #12344D !important;	
+    border-radius: 4px !important;	
+    background: linear-gradient(180deg, #264966 0%, #12344D 100%) !important;
+}
